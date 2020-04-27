@@ -18,5 +18,15 @@ namespace NossoCalendario.Domain.Entities
         public DateTime IncluidoEm { get; private set; }
         public DateTime? AlteradoEm { get; private set; }
 
+        public void AlterarSenha(string novaSenha)
+        {
+            Senha = novaSenha;
+        }
+
+        public void AlterarNome(string novoNome)
+        {
+            Nome = novoNome;
+        }
+
     }
 }
