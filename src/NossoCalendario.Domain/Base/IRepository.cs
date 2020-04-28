@@ -8,8 +8,8 @@ namespace NossoCalendario.Domain.Base
     {
         IUnitOfWork UnitOfWork { get; }
         Task<TEntity> GetBy(Expression<Func<TEntity, bool>> predicate);
-        Task Insert(TEntity entity);
-        Task Update(TEntity entity);
+        void Insert(TEntity entity);
+        void Update(TEntity entity);
     }
 
 }

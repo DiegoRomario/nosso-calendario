@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NossoCalendario.Application.Base;
+using NossoCalendario.Application.Queries;
 using NossoCalendario.Data.Repository;
 using NossoCalendario.Domain.Interfaces;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -19,6 +20,7 @@ namespace NossoCalendario.WebApi.Entensions
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUser, AspNetUser>();
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+            services.AddTransient<IUsuarioQueries, UsuarioQueries>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
             return services;

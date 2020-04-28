@@ -13,9 +13,11 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NossoCalendario.Application.Base;
 using NossoCalendario.Application.Commands;
+using NossoCalendario.Application.Queries;
+using NossoCalendario.Application.ViewModels;
 using NossoCalendario.Domain.Base;
 using NossoCalendario.WebApi.Entensions;
-using NossoCalendario.WebApi.ViewModel;
+
 
 namespace NossoCalendario.WebApi.Controllers.V1
 {
@@ -27,11 +29,13 @@ namespace NossoCalendario.WebApi.Controllers.V1
     {
         private readonly AppSettings _appSettings;
         private readonly IMediator _mediator;
+        private readonly IUsuarioQueries _usuarioQueries;
         public UsuarioController(
-            IOptions<AppSettings> appSettings, IMediator mediator)
+            IOptions<AppSettings> appSettings, IMediator mediator, IUsuarioQueries usuarioQueries)
         {
             _appSettings = appSettings.Value;
             _mediator = mediator;
+            _usuarioQueries = usuarioQueries;
         }
 
 
@@ -39,9 +43,12 @@ namespace NossoCalendario.WebApi.Controllers.V1
         [AllowAnonymous]
         public async Task <ActionResult<UsuarioAutenticadoViewModel>> Login ([FromBody] UsuarioLoginViewModel usuarioLogin) 
         {
-            #warning BUSCAR USUARIO NA BASE DE DADOS
-            #warning  VALIDAR
-            return await GerarToken(new UsuarioViewModel() { Id = Guid.NewGuid(), Email = "email@email.com.br", Nome = "demo", });
+#warning  IMPLEMENTAR VALIDACAO BASE
+            UsuarioViewModel usuario = await _usuarioQueries.AutenticarUsuario(usuarioLogin);
+            if (usuario != null)
+                return await GerarToken(usuario);
+            else
+                return BadRequest("Usuário e/ou senha inválidos!");
         }   
 
         [HttpPost("cadastrar")]
@@ -81,6 +88,7 @@ namespace NossoCalendario.WebApi.Controllers.V1
 
             var response = new UsuarioAutenticadoViewModel()
             {
+                Id = user.Id,
                 Nome = user.Nome,
                 Token = encodedToken,
                 ExpiraEm = Expires_in,

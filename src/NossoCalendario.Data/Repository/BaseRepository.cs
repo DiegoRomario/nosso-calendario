@@ -23,14 +23,14 @@ namespace NossoCalendario.Data.Repository
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public async Task Insert(TEntity usuario)
+        public void Insert(TEntity usuario)
         {
-            await _context.AddAsync(usuario);
+            _context.Add(usuario);
         }
 
-        public async Task Update(TEntity usuario)
+        public void Update(TEntity usuario)
         {
-            await Task.FromResult(_context.Update(usuario));
+            _context.Update(usuario);
         }
         public async Task<TEntity> GetBy(Expression<Func<TEntity, bool>> predicate)
         {

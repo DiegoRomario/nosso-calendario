@@ -35,7 +35,7 @@ namespace NossoCalendario.WebApi
         {
             services.AddDbContext<NossoCalendarioContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NossoCalendarioConnection")));
 
-            DependencyInjectionConfiguration.ResolveDependencies(services);
+            services.ResolveDependencies();
 
             services.AddMediatRConfigurations();
 
@@ -44,6 +44,8 @@ namespace NossoCalendario.WebApi
             services.AddSwaggerConfiguration();
 
             services.AddAuthenticationConfiguration(Configuration);
+
+            services.AddAutoMapperProfileConfiguration();
 
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }

@@ -1,4 +1,4 @@
-﻿namespace NossoCalendario.WebApi.ViewModel
+﻿namespace NossoCalendario.Application.ViewModels
 {
     public class UsuarioLoginViewModel
     {
