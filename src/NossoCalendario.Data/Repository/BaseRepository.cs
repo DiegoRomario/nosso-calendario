@@ -12,8 +12,8 @@ namespace NossoCalendario.Data.Repository
 {
     public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
-        private readonly NossoCalendarioContext _context;
-        private readonly DbSet<TEntity> _dbSet;
+        protected readonly NossoCalendarioContext _context;
+        protected readonly DbSet<TEntity> _dbSet;
 
         public BaseRepository(NossoCalendarioContext context)
         {
@@ -25,12 +25,12 @@ namespace NossoCalendario.Data.Repository
 
         public void Insert(TEntity usuario)
         {
-            _context.Add(usuario);
+            _dbSet.Add(usuario);
         }
 
         public void Update(TEntity usuario)
         {
-            _context.Update(usuario);
+            _dbSet.Update(usuario);
         }
         public async Task<TEntity> GetBy(Expression<Func<TEntity, bool>> predicate)
         {

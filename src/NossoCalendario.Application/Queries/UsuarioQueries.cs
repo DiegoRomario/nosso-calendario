@@ -2,9 +2,6 @@
 using NossoCalendario.Application.ViewModels;
 using NossoCalendario.Domain.Entities;
 using NossoCalendario.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NossoCalendario.Application.Queries
@@ -22,8 +19,7 @@ namespace NossoCalendario.Application.Queries
 
         public async Task<UsuarioViewModel> AutenticarUsuario(UsuarioLoginViewModel login)
         {
-#warning  IMPLEMENTAR CRIPTOGRAFIA
-            Usuario usuario = await _usuarioRepository.GetBy(u => u.Email == login.Email && u.Senha == login.Senha);
+            Usuario usuario = await _usuarioRepository.ValidarUsuario(login.Email, login.Senha);
             return _mapper.Map<UsuarioViewModel>(usuario);
         }
     }

@@ -8,6 +8,8 @@ namespace NossoCalendario.Domain.Interfaces
 {
     public interface IUsuarioRepository : IRepository<Usuario>
     {
-
+        Task<Usuario> ValidarUsuario(string usuario, string senha);
+        void InserirUsuario(Usuario usuario);
+        void AlterarUsuario(Usuario usuario);
     }
 }

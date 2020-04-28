@@ -12,7 +12,11 @@ namespace NossoCalendario.WebApi.Entensions
     {
         public static IServiceCollection AddAutoMapperProfileConfiguration (this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(DomainToViewModelMappingProfile), typeof(ViewModelToDomainMappingProfile));
+            services.AddAutoMapper(
+                typeof(DomainToViewModelMappingProfile), 
+                typeof(ViewModelToDomainMappingProfile), 
+                typeof(CommandToDomainMappingProfile)
+                );
             return services;
         }
     }

@@ -9,7 +9,7 @@ using System.Text;
 namespace NossoCalendario.Application.Commands
 {
     public class CadastrarUsuarioCommand : IRequest<Response>
-    {
+    { 
         public CadastrarUsuarioCommand(string nome, string email, string senha, string confirmacaoSenha)
         {
             Nome = nome;

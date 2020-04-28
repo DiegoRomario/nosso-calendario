@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using NossoCalendario.Application.Base;
 using NossoCalendario.Application.Commands;
 using NossoCalendario.Domain.Base;
@@ -15,23 +16,25 @@ namespace NossoCalendario.Application.Handlers
     {
         private readonly IUsuarioRepository _usuarioRepository;
         public readonly IUser _user;
-
-        public UsuarioHandler(IUsuarioRepository usuarioRepository, IUser user)
+        public readonly IMapper _mappper;
+        public UsuarioHandler(IUsuarioRepository usuarioRepository, IUser user, IMapper mappper)
         {
             _usuarioRepository = usuarioRepository;
             _user = user;
+            _mappper = mappper;
         }
 
         public async Task<Response> Handle(CadastrarUsuarioCommand request, CancellationToken cancellationToken)
         {
-            _usuarioRepository.Insert(new Usuario(request.Nome, request.Email, request.Senha));
+            _usuarioRepository.InserirUsuario(new Usuario(request.Nome, request.Email, request.Senha));
             await _usuarioRepository.UnitOfWork.Commit();
             return new Response("Usuário cadastrado com sucesso!");
         }
 
         public async Task<Response> Handle(AlterarUsuarioCommand request, CancellationToken cancellationToken)
         {
-            _usuarioRepository.Update(new Usuario(request.Nome, _user.GetUserEmail(), request.Senha));
+            Usuario usuario = _mappper.Map<Usuario>(request);
+            _usuarioRepository.AlterarUsuario(usuario);
             await _usuarioRepository.UnitOfWork.Commit();
             return new Response("Usuário alterado com sucesso!");
         }

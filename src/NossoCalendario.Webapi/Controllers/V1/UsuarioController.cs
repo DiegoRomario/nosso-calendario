@@ -30,12 +30,14 @@ namespace NossoCalendario.WebApi.Controllers.V1
         private readonly AppSettings _appSettings;
         private readonly IMediator _mediator;
         private readonly IUsuarioQueries _usuarioQueries;
+        private readonly IUser _user;
         public UsuarioController(
-            IOptions<AppSettings> appSettings, IMediator mediator, IUsuarioQueries usuarioQueries)
+            IOptions<AppSettings> appSettings, IMediator mediator, IUsuarioQueries usuarioQueries, IUser user)
         {
             _appSettings = appSettings.Value;
             _mediator = mediator;
             _usuarioQueries = usuarioQueries;
+            _user = user;
         }
 
 
@@ -43,7 +45,7 @@ namespace NossoCalendario.WebApi.Controllers.V1
         [AllowAnonymous]
         public async Task <ActionResult<UsuarioAutenticadoViewModel>> Login ([FromBody] UsuarioLoginViewModel usuarioLogin) 
         {
-#warning  IMPLEMENTAR VALIDACAO BASE
+            #warning  IMPLEMENTAR CONTROLLER BASE
             UsuarioViewModel usuario = await _usuarioQueries.AutenticarUsuario(usuarioLogin);
             if (usuario != null)
                 return await GerarToken(usuario);
@@ -62,7 +64,23 @@ namespace NossoCalendario.WebApi.Controllers.V1
                 return BadRequest(response.Errors);
 
             return Ok(response.Result);
-        } 
+        }
+
+        [HttpPut("alterar/{id:guid}")]
+        public async Task<ActionResult> AlterarUsuario(Guid id, AlterarUsuarioCommand usuario)
+        {
+            #warning  IMPLEMENTAR CONTROLLER BASE
+            if (id != usuario.Id)
+                return BadRequest("O Id do usuário não corresponde ao Id solicitado para alteração");
+            if (_user.GetUserEmail() != usuario.Email)
+                return BadRequest("O E-mail informado não corresponde ao e-mail logado");
+            Response response = await _mediator.Send(usuario).ConfigureAwait(false);
+
+            if (response.Errors.Any())
+                return BadRequest(response.Errors);
+
+            return Ok(response.Result);
+        }
 
 
         private async Task<UsuarioAutenticadoViewModel> GerarToken (UsuarioViewModel user)
