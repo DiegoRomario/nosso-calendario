@@ -11,17 +11,13 @@ using System.Threading.Tasks;
 
 namespace NossoCalendario.Application.Handlers
 {
-    public class UsuarioHandler : IRequestHandler<CadastrarUsuarioCommand, Response>, IRequestHandler<AlterarUsuarioCommand, Response>
+    public class UsuarioHandler : IRequestHandler<CadastrarUsuarioCommand, Response>
 
     {
         private readonly IUsuarioRepository _usuarioRepository;
-        public readonly IUser _user;
-        public readonly IMapper _mappper;
-        public UsuarioHandler(IUsuarioRepository usuarioRepository, IUser user, IMapper mappper)
+        public UsuarioHandler(IUsuarioRepository usuarioRepository)
         {
             _usuarioRepository = usuarioRepository;
-            _user = user;
-            _mappper = mappper;
         }
 
         public async Task<Response> Handle(CadastrarUsuarioCommand request, CancellationToken cancellationToken)
@@ -31,12 +27,5 @@ namespace NossoCalendario.Application.Handlers
             return new Response("Usuário cadastrado com sucesso!");
         }
 
-        public async Task<Response> Handle(AlterarUsuarioCommand request, CancellationToken cancellationToken)
-        {
-            Usuario usuario = _mappper.Map<Usuario>(request);
-            _usuarioRepository.AlterarUsuario(usuario);
-            await _usuarioRepository.UnitOfWork.Commit();
-            return new Response("Usuário alterado com sucesso!");
-        }
     }
 }

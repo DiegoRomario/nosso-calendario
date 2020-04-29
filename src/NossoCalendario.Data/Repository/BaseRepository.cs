@@ -27,16 +27,6 @@ namespace NossoCalendario.Data.Repository
         {
             _dbSet.Add(usuario);
         }
-
-        public void Update(TEntity usuario)
-        {
-            _dbSet.Update(usuario);
-        }
-        public async Task<TEntity> GetBy(Expression<Func<TEntity, bool>> predicate)
-        {
-            return await _dbSet.AsNoTracking().Where(predicate).FirstOrDefaultAsync();
-        }
-
         public void Dispose()
         {
             _context?.Dispose();

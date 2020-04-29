@@ -21,44 +21,12 @@ namespace NossoCalendario.WebApi.Entensions
             services.AddSwaggerGen(c =>
             {
                 c.OperationFilter<SwaggerDefaultValues>();
-
-                var security = new Dictionary<string, IEnumerable<string>>
-                {
-                    {"Bearer", new string[] { }}
-                };
-
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = "O token JWT deve ser informado da seguinte forma: Bearer {seu token}",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey
-                });
-
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer",
-                        }
-                        },
-                        new string[] { }
-                    }
-                });
             });
             return services;
         }
 
         public static IApplicationBuilder UseSwaggerConfiguration(this IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseMiddleware<SwaggerAuthorizedMiddleware>();
-            }
-
             app.UseSwagger(options =>
             {
                 options.RouteTemplate = "documentacao/{documentName}/documentacao.json";
@@ -139,25 +107,4 @@ namespace NossoCalendario.WebApi.Entensions
         }
     }
 
-    public class SwaggerAuthorizedMiddleware
-    {
-        private readonly RequestDelegate _next;
-
-        public SwaggerAuthorizedMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public async Task Invoke(HttpContext context)
-        {
-            if (context.Request.Path.StartsWithSegments("/swagger")
-                && !context.User.Identity.IsAuthenticated)
-            {
-                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                return;
-            }
-
-            await _next.Invoke(context);
-        }
-    }
 }
