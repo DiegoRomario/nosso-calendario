@@ -23,7 +23,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\NossoCalendario.Application\NossoCalendario.Application.csproj" />
     <ProjectReference Include="..\NossoCalendario.Data\NossoCalendario.Data.csproj" />
   </ItemGroup>
 

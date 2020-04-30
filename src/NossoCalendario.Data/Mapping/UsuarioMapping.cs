@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NossoCalendario.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace NossoCalendario.Data.Mapping
 {

@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NossoCalendario.Data.Context;
 using NossoCalendario.Domain.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NossoCalendario.Data.Repository
@@ -23,13 +18,15 @@ namespace NossoCalendario.Data.Repository
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public void Insert(TEntity usuario)
+        public Task Insert(TEntity usuario)
         {
-            _dbSet.Add(usuario);
+            return Task.FromResult(_dbSet.Add(usuario));
         }
+
         public void Dispose()
         {
             _context?.Dispose();
         }
+
     }
 }

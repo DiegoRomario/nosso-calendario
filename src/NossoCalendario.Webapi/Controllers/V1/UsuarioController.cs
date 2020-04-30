@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using MediatR;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NossoCalendario.Application.Commands;
-using NossoCalendario.Domain.Base;
-
+using NossoCalendario.Domain.Entities;
+using NossoCalendario.Domain.Interfaces;
+using NossoCalendario.WebApi.Controllers.Base;
+using NossoCalendario.WebApi.ViewModels;
 
 namespace NossoCalendario.WebApi.Controllers.V1
 {
@@ -15,23 +14,23 @@ namespace NossoCalendario.WebApi.Controllers.V1
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public UsuarioController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        private readonly IUsuarioRepository _usuarioRepository;
 
+        public UsuarioController(IUsuarioRepository usuarioRepository)
+        {
+            _usuarioRepository = usuarioRepository;
+        }
 
         [HttpPost("cadastrar")]
         [AllowAnonymous]
-        public async Task<ActionResult> CadastrarUsuario([FromBody] CadastrarUsuarioCommand usuario)
+        public async Task<ActionResult> CadastrarUsuario([FromBody] CadastrarUsuarioViewModel usuario)
         {
-            Response response = await _mediator.Send(usuario).ConfigureAwait(false);
+            if (!ModelState.IsValid)
+                return BadRequest(ResponseBase.Response(ModelState));
 
-            if (response.Errors.Any())
-                return BadRequest(response.Errors);
-
-            return Ok(response.Result);
+            await _usuarioRepository.InserirUsuario(new Usuario(usuario.Nome, usuario.Email, usuario.Senha));
+            await _usuarioRepository.UnitOfWork.Commit();
+            return Ok(value: ResponseBase.Response(usuario));
         }
 
 
