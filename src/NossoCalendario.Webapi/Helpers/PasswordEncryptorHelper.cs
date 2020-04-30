@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 
 
-namespace NossoCalendario.Data.Base
+namespace NossoCalendario.WebApi.Helpers
 {
     public static class PasswordEncryptorHelper
     {

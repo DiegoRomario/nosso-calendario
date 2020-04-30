@@ -18,9 +18,10 @@ namespace NossoCalendario.Data.Repository
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public Task Insert(TEntity usuario)
+        public async Task Insert(TEntity usuario)
         {
-            return Task.FromResult(_dbSet.Add(usuario));
+            _dbSet.Add(usuario);
+            await UnitOfWork.Commit();
         }
 
         public void Dispose()

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using NossoCalendario.Domain.Entities;
 using NossoCalendario.Domain.Interfaces;
 using NossoCalendario.WebApi.Controllers.Base;
+using NossoCalendario.WebApi.Entensions;
 using NossoCalendario.WebApi.ViewModels;
 
 namespace NossoCalendario.WebApi.Controllers.V1
@@ -26,11 +27,11 @@ namespace NossoCalendario.WebApi.Controllers.V1
         public async Task<ActionResult> CadastrarUsuario([FromBody] CadastrarUsuarioViewModel usuario)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ResponseBase.Response(ModelState));
+                return BadRequest(ModelState);
 
-            await _usuarioRepository.InserirUsuario(new Usuario(usuario.Nome, usuario.Email, usuario.Senha));
-            await _usuarioRepository.UnitOfWork.Commit();
-            return Ok(value: ResponseBase.Response(usuario));
+
+            await _usuarioRepository.Insert(new Usuario(usuario.Nome, usuario.Email, usuario.Senha.ToHash()));
+            return Ok(value: usuario);
         }
 
 
