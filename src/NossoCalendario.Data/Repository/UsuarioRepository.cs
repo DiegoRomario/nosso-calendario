@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NossoCalendario.Data.Repository
 {
-    public class UsuarioRepository : IDisposable
+    public class UsuarioRepository
     {
         protected readonly NossoCalendarioContext _context;
         protected readonly DbSet<Usuario> _dbSet;
@@ -23,9 +23,5 @@ namespace NossoCalendario.Data.Repository
             await _context.SaveChangesAsync();
         }
 
-        public void Dispose()
-        {
-            _context?.Dispose();
-        }
     }
 }
