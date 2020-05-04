@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NossoCalendario.Domain.Entities;
 using NossoCalendario.Domain.Interfaces;
-using NossoCalendario.WebApi.Controllers.Base;
-using NossoCalendario.WebApi.Entensions;
+using NossoCalendario.WebApi.Helpers;
 using NossoCalendario.WebApi.ViewModels;
 
 namespace NossoCalendario.WebApi.Controllers.V1
@@ -30,7 +29,7 @@ namespace NossoCalendario.WebApi.Controllers.V1
                 return BadRequest(ModelState);
 
 
-            await _usuarioRepository.Insert(new Usuario(usuario.Nome, usuario.Email, usuario.Senha.ToHash()));
+            await _usuarioRepository.Insert(new Usuario(usuario.Nome, usuario.Email, PasswordEncryptorHelper.Hash(usuario.Senha)));
             return Ok(value: usuario);
         }
 
