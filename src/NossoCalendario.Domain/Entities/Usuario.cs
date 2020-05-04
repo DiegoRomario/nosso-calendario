@@ -10,14 +10,13 @@ namespace NossoCalendario.Domain.Entities
             Nome = nome;
             Email = email;
             Senha = senha;
+            IncluidoEm = DateTime.Now;
         }
 
         public string Nome { get; private set; }
         public string Email { get; private set; }
         public string Senha { get; private set; }
         public DateTime IncluidoEm { get; private set; }
-        public DateTime? AlteradoEm { get; private set; }
-
         public void CriptografarSenha(string hash)
         {
             Senha = hash;

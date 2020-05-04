@@ -1,13 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NossoCalendario.Domain.Base;
 using NossoCalendario.Domain.Entities;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace NossoCalendario.Data.Context
 {
-    public class NossoCalendarioContext : DbContext, IUnitOfWork
+    public class NossoCalendarioContext : DbContext
     {
         public NossoCalendarioContext(DbContextOptions options) : base(options)
         {
@@ -44,24 +42,5 @@ namespace NossoCalendario.Data.Context
             }
         }
 
-        public async Task<bool> Commit()
-        {
-            foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("IncluidoEm") != null && entry.Entity.GetType().GetProperty("AlteradoEm") != null))
-            {
-                if (entry.State == EntityState.Added)
-                {
-                    entry.Property("IncluidoEm").CurrentValue = DateTime.Now;
-                    entry.Property("AlteradoEm").IsModified = false;
-                }
-
-                if (entry.State == EntityState.Modified)
-                {
-                    entry.Property("IncluidoEm").IsModified = false;
-                    entry.Property("AlteradoEm").CurrentValue = DateTime.Now;
-                }
-            }
-
-            return await base.SaveChangesAsync() > 0;
-        }
     }
 }

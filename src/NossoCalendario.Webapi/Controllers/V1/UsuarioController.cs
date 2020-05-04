@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NossoCalendario.Data.Repository;
 using NossoCalendario.Domain.Entities;
-using NossoCalendario.Domain.Interfaces;
 using NossoCalendario.WebApi.Helpers;
 using NossoCalendario.WebApi.ViewModels;
 
@@ -14,9 +14,9 @@ namespace NossoCalendario.WebApi.Controllers.V1
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly UsuarioRepository _usuarioRepository;
 
-        public UsuarioController(IUsuarioRepository usuarioRepository)
+        public UsuarioController(UsuarioRepository usuarioRepository)
         {
             _usuarioRepository = usuarioRepository;
         }
@@ -27,7 +27,6 @@ namespace NossoCalendario.WebApi.Controllers.V1
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
 
             await _usuarioRepository.Insert(new Usuario(usuario.Nome, usuario.Email, PasswordEncryptorHelper.Hash(usuario.Senha)));
             return Ok(value: usuario);
