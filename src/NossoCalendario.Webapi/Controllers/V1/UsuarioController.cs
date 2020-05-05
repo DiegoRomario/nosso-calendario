@@ -15,20 +15,23 @@ namespace NossoCalendario.WebApi.Controllers.V1
     public class UsuarioController : ControllerBase
     {
         private readonly UsuarioRepository _usuarioRepository;
+        private readonly AgendaRepository _agendaRepository;
 
-        public UsuarioController(UsuarioRepository usuarioRepository)
+        public UsuarioController(UsuarioRepository usuarioRepository, AgendaRepository agendaRepository)
         {
             _usuarioRepository = usuarioRepository;
+            _agendaRepository = agendaRepository;
         }
 
         [HttpPost("cadastrar")]
         [AllowAnonymous]
-        public async Task<ActionResult> CadastrarUsuario([FromBody] CadastrarUsuarioViewModel usuario)
+        public async Task<ActionResult> CadastrarUsuario([FromBody] UsuarioViewModel usuario)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _usuarioRepository.Insert(new Usuario(usuario.Nome, usuario.Email, PasswordEncryptorHelper.Hash(usuario.Senha)));
+            Usuario novoUsuario = await _usuarioRepository.Insert(new Usuario(usuario.Nome, usuario.Email, PasswordEncryptorHelper.Hash(usuario.Senha)));
+            await _agendaRepository.Insert(new Agenda(novoUsuario.Nome, $"Agenda {novoUsuario.Nome}", novoUsuario.Id));
             return Ok(value: usuario);
         }
 

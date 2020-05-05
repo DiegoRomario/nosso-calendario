@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NossoCalendario.WebApi.ViewModels
 {
-    public class CadastrarUsuarioViewModel
+    public class UsuarioViewModel
     {
-        public CadastrarUsuarioViewModel(string nome, string email, string senha, string confirmacaoSenha)
+        public UsuarioViewModel(string nome, string email, string senha, string confirmacaoSenha)
         {
             Nome = nome;
             Email = email;
@@ -24,6 +25,7 @@ namespace NossoCalendario.WebApi.ViewModels
         [DataType(DataType.Password)]
         [Compare("Senha", ErrorMessage = "A confirmação de senha deve ter o mesmo conteúdo da senha")]
         public string ConfirmacaoSenha { get; set; }
+
     }
 
 }

@@ -5,22 +5,21 @@ using System.Threading.Tasks;
 
 namespace NossoCalendario.Data.Repository
 {
-    public class UsuarioRepository
+    public class AgendaRepository
     {
         protected readonly NossoCalendarioContext _context;
-        protected readonly DbSet<Usuario> _dbSet;
+        protected readonly DbSet<Agenda> _dbSet;
 
-        public UsuarioRepository(NossoCalendarioContext context)
+        public AgendaRepository(NossoCalendarioContext context)
         {
             _context = context;
-            _dbSet = context.Set<Usuario>();
+            _dbSet = context.Set<Agenda>();
         }
 
-        public async Task<Usuario> Insert(Usuario usuario)
+        public async Task Insert (Agenda agenda)
         {
-            _dbSet.Add(usuario);
+            _dbSet.Add(agenda);
             await _context.SaveChangesAsync();
-            return usuario;
         }
 
     }
