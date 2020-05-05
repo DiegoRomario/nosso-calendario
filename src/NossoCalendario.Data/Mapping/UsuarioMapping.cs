@@ -14,6 +14,10 @@ namespace NossoCalendario.Data.Mapping
             builder.Property("Email").HasColumnType("VARCHAR(50)").IsRequired();
             builder.Property("Senha").HasColumnType("VARCHAR(240)").IsRequired();
             builder.HasAlternateKey(a => a.Email);
+            builder.HasMany(u => u.Agendas)
+                .WithOne(a => a.Usuario)
+                .HasForeignKey(a => a.UsuarioId);
+
         }
     }
 }

@@ -12,6 +12,7 @@ namespace NossoCalendario.Data.Context
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Agenda> Agendas { get; set; }
 
 
 

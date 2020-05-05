@@ -1,5 +1,6 @@
 ﻿using NossoCalendario.Domain.Base;
 using System;
+using System.Collections.Generic;
 
 namespace NossoCalendario.Domain.Entities
 {
@@ -22,6 +23,7 @@ namespace NossoCalendario.Domain.Entities
             Senha = hash;
         }
 
+        public IEnumerable<Agenda> Agendas { get; private set; }
 
 
     }
