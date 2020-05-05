@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NossoCalendario.WebApi", "src\NossoCalendario.Webapi\NossoCalendario.WebApi.csproj", "{B3514BCA-6E16-406B-8069-34CC44D09574}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-WebApps", "1-WebApps", "{CD6CAFEA-404E-4515-BBF1-55FF485C5291}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Business", "2-Business", "{E50B896B-62F1-40F7-8652-7A514F7C5837}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NossoCalendario.Domain", "src\NossoCalendario.Domain\NossoCalendario.Domain.csproj", "{671C37E0-31E6-4176-8BD5-F79CA52169EB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NossoCalendario.Data", "src\NossoCalendario.Data\NossoCalendario.Data.csproj", "{06CA9A5C-867F-4A32-83B1-5CA77CF74E32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3514BCA-6E16-406B-8069-34CC44D09574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3514BCA-6E16-406B-8069-34CC44D09574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3514BCA-6E16-406B-8069-34CC44D09574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3514BCA-6E16-406B-8069-34CC44D09574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{671C37E0-31E6-4176-8BD5-F79CA52169EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{671C37E0-31E6-4176-8BD5-F79CA52169EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{671C37E0-31E6-4176-8BD5-F79CA52169EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{671C37E0-31E6-4176-8BD5-F79CA52169EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06CA9A5C-867F-4A32-83B1-5CA77CF74E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06CA9A5C-867F-4A32-83B1-5CA77CF74E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06CA9A5C-867F-4A32-83B1-5CA77CF74E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06CA9A5C-867F-4A32-83B1-5CA77CF74E32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B3514BCA-6E16-406B-8069-34CC44D09574} = {CD6CAFEA-404E-4515-BBF1-55FF485C5291}
+		{671C37E0-31E6-4176-8BD5-F79CA52169EB} = {E50B896B-62F1-40F7-8652-7A514F7C5837}
+		{06CA9A5C-867F-4A32-83B1-5CA77CF74E32} = {E50B896B-62F1-40F7-8652-7A514F7C5837}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E47CAF4-5276-492D-8B2B-D497AE46B511}
+	EndGlobalSection
+EndGlobal
