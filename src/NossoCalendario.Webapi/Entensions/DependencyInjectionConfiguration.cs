@@ -12,7 +12,6 @@ namespace NossoCalendario.WebApi.Entensions
         {
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddTransient<UsuarioRepository>();
-            services.AddTransient<AgendaRepository>();
             return services;
         }
     }

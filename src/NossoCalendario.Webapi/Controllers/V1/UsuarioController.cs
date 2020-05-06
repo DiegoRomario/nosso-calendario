@@ -15,12 +15,10 @@ namespace NossoCalendario.WebApi.Controllers.V1
     public class UsuarioController : ControllerBase
     {
         private readonly UsuarioRepository _usuarioRepository;
-        private readonly AgendaRepository _agendaRepository;
 
-        public UsuarioController(UsuarioRepository usuarioRepository, AgendaRepository agendaRepository)
+        public UsuarioController(UsuarioRepository usuarioRepository)
         {
             _usuarioRepository = usuarioRepository;
-            _agendaRepository = agendaRepository;
         }
 
         [HttpPost("cadastrar")]
@@ -31,8 +29,7 @@ namespace NossoCalendario.WebApi.Controllers.V1
                 return BadRequest(ModelState);
 
             Usuario novoUsuario = await _usuarioRepository.Insert(new Usuario(usuario.Nome, usuario.Email, PasswordEncryptorHelper.Hash(usuario.Senha)));
-            await _agendaRepository.Insert(new Agenda(novoUsuario));
-            await _agendaRepository.SaveChangesAsync();
+            await _usuarioRepository.SaveChangesAsync();
             return Ok(value: usuario);
         }
 

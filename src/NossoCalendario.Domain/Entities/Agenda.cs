@@ -5,13 +5,8 @@ namespace NossoCalendario.Domain.Entities
 {
     public class Agenda : Entity
     {
+        [Obsolete("Construtor utilizado apenas para mapeamento do EF", true)]
         private Agenda(){}
-        public Agenda(string nome, string descricao, Usuario usuario)
-        {
-            Nome = nome;
-            Descricao = descricao;
-            Usuario = usuario;
-        }
         public Agenda(Usuario usuario)
         {
             Nome = usuario.Nome;
