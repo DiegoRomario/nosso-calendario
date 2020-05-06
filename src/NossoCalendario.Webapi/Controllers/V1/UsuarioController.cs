@@ -31,7 +31,8 @@ namespace NossoCalendario.WebApi.Controllers.V1
                 return BadRequest(ModelState);
 
             Usuario novoUsuario = await _usuarioRepository.Insert(new Usuario(usuario.Nome, usuario.Email, PasswordEncryptorHelper.Hash(usuario.Senha)));
-            await _agendaRepository.Insert(new Agenda(novoUsuario.Nome, $"Agenda {novoUsuario.Nome}", novoUsuario.Id));
+            await _agendaRepository.Insert(new Agenda(novoUsuario));
+            await _agendaRepository.SaveChangesAsync();
             return Ok(value: usuario);
         }
 

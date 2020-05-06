@@ -16,9 +16,13 @@ namespace NossoCalendario.Data.Repository
             _dbSet = context.Set<Agenda>();
         }
 
-        public async Task Insert (Agenda agenda)
+        public Task<Agenda> Insert (Agenda agenda)
         {
             _dbSet.Add(agenda);
+            return Task.FromResult(agenda);
+        }
+        public async Task SaveChangesAsync()
+        {
             await _context.SaveChangesAsync();
         }
 

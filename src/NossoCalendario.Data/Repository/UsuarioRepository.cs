@@ -16,11 +16,15 @@ namespace NossoCalendario.Data.Repository
             _dbSet = context.Set<Usuario>();
         }
 
-        public async Task<Usuario> Insert(Usuario usuario)
+        public Task<Usuario> Insert(Usuario usuario)
         {
             _dbSet.Add(usuario);
+            return Task.FromResult(usuario);
+        }
+
+        public async Task SaveChangesAsync()
+        {
             await _context.SaveChangesAsync();
-            return usuario;
         }
 
     }
