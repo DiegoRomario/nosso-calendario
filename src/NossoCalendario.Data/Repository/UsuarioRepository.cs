@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NossoCalendario.Data.Context;
 using NossoCalendario.Domain.Entities;
-using System;
 using System.Threading.Tasks;
 
 namespace NossoCalendario.Data.Repository
@@ -17,9 +16,14 @@ namespace NossoCalendario.Data.Repository
             _dbSet = context.Set<Usuario>();
         }
 
-        public async Task Insert(Usuario usuario)
+        public Task<Usuario> Insert(Usuario usuario)
         {
             _dbSet.Add(usuario);
+            return Task.FromResult(usuario);
+        }
+
+        public async Task SaveChangesAsync()
+        {
             await _context.SaveChangesAsync();
         }
 

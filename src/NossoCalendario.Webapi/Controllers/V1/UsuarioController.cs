@@ -23,12 +23,13 @@ namespace NossoCalendario.WebApi.Controllers.V1
 
         [HttpPost("cadastrar")]
         [AllowAnonymous]
-        public async Task<ActionResult> CadastrarUsuario([FromBody] CadastrarUsuarioViewModel usuario)
+        public async Task<ActionResult> CadastrarUsuario([FromBody] UsuarioViewModel usuario)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _usuarioRepository.Insert(new Usuario(usuario.Nome, usuario.Email, PasswordEncryptorHelper.Hash(usuario.Senha)));
+            Usuario novoUsuario = await _usuarioRepository.Insert(new Usuario(usuario.Nome, usuario.Email, PasswordEncryptorHelper.Hash(usuario.Senha)));
+            await _usuarioRepository.SaveChangesAsync();
             return Ok(value: usuario);
         }
 

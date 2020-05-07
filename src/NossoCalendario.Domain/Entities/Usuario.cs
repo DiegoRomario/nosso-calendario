@@ -1,5 +1,7 @@
 ﻿using NossoCalendario.Domain.Base;
 using System;
+using System.Collections.Generic;
+
 
 namespace NossoCalendario.Domain.Entities
 {
@@ -11,6 +13,7 @@ namespace NossoCalendario.Domain.Entities
             Email = email;
             Senha = senha;
             IncluidoEm = DateTime.Now;
+            Agendas = new List<Agenda>() { new Agenda(this) };
         }
 
         public string Nome { get; private set; }
@@ -22,6 +25,7 @@ namespace NossoCalendario.Domain.Entities
             Senha = hash;
         }
 
+        public IEnumerable<Agenda> Agendas { get; private set; }
 
 
     }
