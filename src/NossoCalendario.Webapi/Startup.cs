@@ -30,6 +30,8 @@ namespace NossoCalendario.WebApi
 
             services.AddSwaggerConfiguration();
 
+            services.AddAuthenticationConfiguration();
+
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
